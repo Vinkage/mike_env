@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+date=$(date '+%Y-%m-%d')
+# echo home_folder_$date
+backup_folder="/Volumes/Seagate/${date}_home_folder"
+# echo $backup_folder
+mkdir -p $backup_folder
+rsync -a ~/ $backup_folder

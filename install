@@ -1,0 +1,98 @@
+# installs shell env and programming languages 
+# for different operating systems
+case "$(uname -s)" in
+
+Darwin)
+ echo 'Setting up macos environment'
+ # Installs oh-my-zsh
+ if [[ ! -d ~/.oh-my-zsh ]]
+ then
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+ fi
+
+ # Symlink zshrc to right location
+ if [[ -e ~/.zshrc ]]
+ then
+     rm ~/.zshrc
+     ln -s ~/dotfiles/mike_env/.zshrc ~/.zshrc
+ else
+     ln -s ~/dotfiles/mike_env/.zshrc ~/.zshrc
+ fi
+ # Symlink zshrc to right location
+ if [[ -e ~/.zshenv ]]
+ then
+     rm ~/.zshenv
+     ln -s ~/dotfiles/mike_env/.zshenv ~/.zshenv
+ else
+     ln -s ~/dotfiles/mike_env/.zshenv ~/.zshenv
+ fi
+ # Installs zsh plugins
+ rm -rf /Users/mikevink/.oh-my-zsh/custom/plugins/
+ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+ source ~/.zshrc
+
+ # Installs homebrew
+ if ! command -v brew &> /dev/null
+ then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+ fi
+
+ # installs fzf
+ if ! command -v fzf &> /dev/null
+ then
+     brew install fzf
+     $(brew --prefix)/opt/fzf/install
+ fi
+
+ # Installs R things
+ if ! command -v R &> /dev/null
+ then
+    brew install r
+ fi
+
+ # Installs python3 things
+ if ! command -v pyenv &> /dev/null
+ then
+    brew install python3 direnv pyenv
+    source ~/.zshrc
+    echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
+ fi
+
+ # Install basic LaTeX
+ brew install --cask basictex
+
+ # Symlinks config files to the XDG location
+ for f in `find . -type d -regex "./config/.*$"`; do
+     f=${f/.\/config\//}
+     rm -rf ~/.config/$f
+     mkdir -p ~/.config/$f
+     # ln -s ~/dotfiles/mike_neovim/config/$f ~/.config/$f
+ done
+ for f in `find . -type f -regex "./config/.*$"`; do
+     f=${f/.\/config\//}
+     rm -rf ~/.config/$f
+     ln -s ~/dotfiles/mike_env/config/$f ~/.config/$f
+     echo $f
+ done
+ ;;
+
+Linux)
+ echo 'Linux'
+ ;;
+
+CYGWIN*|MINGW32*|MSYS*|MINGW*)
+ echo 'MS Windows'
+ ;;
+
+# Add here more strings to compare
+# See correspondence table at the bottom of this answer
+
+*)
+ echo 'Other OS' 
+ ;;
+esac
+
+# for f in `find . -regex ".*\.lua$"`; do
+#     rm -rf ~/.config/nvim/$f
+#     ln -s ~/dotfiles/mike_neovim/$f ~/.config/nvim/$f
+# done
