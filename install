@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # installs shell env and programming languages 
 # for different operating systems
 case "$(uname -s)" in
@@ -44,6 +45,12 @@ Darwin)
      $(brew --prefix)/opt/fzf/install
  fi
 
+ # Install ripgrep if it's not there
+ if ! command -v rg &> /dev/null
+ then
+     brew install ripgrep
+ fi
+
  # Installs R things
  if ! command -v R &> /dev/null
  then
@@ -59,7 +66,16 @@ Darwin)
  fi
 
  # Install basic LaTeX
- brew install --cask basictex
+ if ! command -v latexmk &> /dev/null
+ then
+    brew install --cask basictex
+ fi
+
+ brew install --cask microsoft-teams
+ brew install --cask zoom
+ brew install --cask firefox
+ brew install --cask bitwarden
+ brew install --cask whatsapp
 
  # Symlinks config files to the XDG location
  for f in `find . -type d -regex "./config/.*$"`; do
