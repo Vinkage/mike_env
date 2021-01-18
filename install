@@ -92,6 +92,7 @@ Darwin)
      ln -s ~/dotfiles/mike_env/config/$f ~/.config/$f
      echo $f
  done
+ cp .tmux.conf ~/.tmux.conf
  ;;
 
 Linux)
