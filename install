@@ -71,11 +71,13 @@ Darwin)
     brew install --cask basictex
  fi
 
+ brew install --cask iterm2
  brew install --cask microsoft-teams
  brew install --cask zoom
  brew install --cask firefox
  brew install --cask bitwarden
  brew install --cask whatsapp
+
 
  # Symlinks config files to the XDG location
  for f in `find . -type d -regex "./config/.*$"`; do
