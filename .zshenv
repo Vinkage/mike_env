@@ -23,18 +23,5 @@ export DICTPATH=/Users/mikevink/Library/Spelling/en-custom
 alias v="nvim"
 alias ls="ls -Ga"
 
-# Bindings
-export KEYTIMEOUT=20
-bindkey -M viins 'kj' vi-cmd-mode
-bindkey -M visual 'kj' vi-cmd-mode
-
 # pyenv
-export PATH="/Users/mikevink/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-export LDFLAGS="-L/usr/local/opt/zlib/lib"
-export CPPFLAGS="-I/usr/local/opt/zlib/include"
-
-# Go
-export GOPATH=$HOME/gopath
-export PATH=$GOPATH:$GOPATH/bin:$PATH
+export PATH="/Users/mike/.pyenv/bin:$PATH"

@@ -55,6 +55,9 @@ Darwin)
  if ! command -v R &> /dev/null
  then
     brew install r
+    Rscript -e 'install.packages("tidyverse", repos="http://cran.us.r-project.org")'
+    Rscript -e 'install.packages("languageserver", repos="http://cran.us.r-project.org")'
+    Rscript -e 'install.packages("tinytex", repos="http://cran.us.r-project.org")'
  fi
 
  # Installs python3 things
@@ -66,9 +69,9 @@ Darwin)
  fi
 
  # Install basic LaTeX
- if ! command -v latexmk &> /dev/null
+ if ! command -v tmux &> /dev/null
  then
-    brew install --cask basictex
+    brew install tmux
  fi
 
  brew install --cask iterm2
